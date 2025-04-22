@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Alexander Menschaart</title>
+    <!-- Include Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK (if needed later) -->
+    <style>
+        /* Rainbow colors with adjusted lightness (more white) */
+        :root {
+            --rainbow-red: rgba(255, 0, 0, 1);
+            --rainbow-orange: rgba(230, 205, 50, 1);
+             --rainbow-yellow: rgba(255, 255, 0, 1);
+            --rainbow-green: rgba(0, 128, 0, 1);
+            --rainbow-blue: rgba(0, 0, 255, 1);
+            --rainbow-indigo: rgba(75, 0, 130, 1);
+            --rainbow-violet: rgba(238, 130, 238, 1);
+            --rainbow-magenta: rgba(255, 120, 200, 1);
+            --rainbow-lightgreen: rgba(150, 220, 100, 1);
+        }
+
+        /* Text hover effect for navigation links and specific buttons */
+        .nav-text-hover:hover,
+        .text-hover:hover {
+            animation: rainbow-hover-text 5s infinite;
+        }
+        .nav-text-hover-cv:hover,
+        .text-hover:hover {
+            animation: rainbow-hover-text-cv 5s infinite;
+        }
+
+        /* Background hover effect for other buttons */
+        .bg-hover:hover {
+            animation: rainbow-hover-bg 5s infinite;
+        }
+
+        /* Define keyframes for text color animation */
+        @keyframes rainbow-hover-text {
+            0%   { color: var(--rainbow-orange); }
+            25%  { color: var(--rainbow-lightgreen); }
+            75%  { color: var(--rainbow-lightgreen); }
+            100% { color: var(--rainbow-orange); }
+        }
+        @keyframes rainbow-hover-text-cv {
+            0%   { color: var(--rainbow-magenta); }
+            25%  { color: var(--rainbow-orange); }
+            75%  { color: var(--rainbow-orange); }
+            100% { color: var(--rainbow-magenta); }
+        }
+
+        /* Define keyframes for background color animation */
+        @keyframes rainbow-hover-bg {
+            0%   { background-color: var(--rainbow-orange); }
+            25%  { background-color: var(--rainbow-lightgreen); }
+            75%  { background-color: var(--rainbow-lightgreen); }
+            100% { background-color: var(--rainbow-orange); }
+        }
+
+
+
+
+        .tracking-in-expand {
+            -webkit-animation: tracking-in-expand 2s cubic-bezier(.215, .61, .355, 1.000) both;
+            animation: tracking-in-expand 2s cubic-bezier(.215, .61, .355, 1.000) both;
+        }
+        @-webkit-keyframes tracking-in-expand {
+            0% { letter-spacing: -.5em; opacity: 0 }
+            40% { opacity: .6 }
+            100% { opacity: 1 }
+        }
+        @keyframes tracking-in-expand {
+            0% { letter-spacing: -.5em; opacity: 0 }
+            40% { opacity: .6 }
+            100% { opacity: 1 }
+        }
+
+        /* --- Custom Hexagonal Grid Overlay Styles --- */
+        /* This overlay covers the entire viewport and shows a large, thin-lined hexagonal grid.
+           Only a circular “spotlight” area (via clip-path) is revealed around the cursor.
+           The clip-path will be animated to fade out gradually when the mouse stops moving. */
+        /* --- Custom Hexagonal Grid Overlay Styles with Soft Fade --- */
+        #grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            /* Use an SVG background with thin hexagon lines (stroke-width='0.5') */
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10000' height='86.6'%3E%3Cdefs%3E%3Cpattern id='hex' width='10' height='8.66' patternUnits='userSpaceOnUse'%3E%3Cpolygon points='5,0 10,4.33 5,8.66 0,4.33' fill='none' stroke='%23289c68' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23hex)'/%3E%3C/svg%3E") no-repeat center center;
+            background-size: cover;
+            /* Remove the clip-path in favor of a mask that fades out from the center */
+            /* The radial-gradient creates a circle with a radius of 80px that is fully opaque in the center (black)
+               and fades to transparent at the edges. */
+            mask-image: radial-gradient(circle 80px, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+                    /*-webkit-mask-image: radial-gradient(circle 80px, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);*/
+            /* Set the mask size to match the diameter (80px * 2 = 160px) of the spotlight */
+            mask-size: 1px 1px;
+            -webkit-mask-size: 1px 1px;
+            /* Prevent the mask from tiling */
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            /* Initially position the mask out of view */
+            mask-position: 0 0;
+            -webkit-mask-position: 0 0;
+            /* Use a transition if you want the mask to animate when updating position */
+            transition: mask-position 0.1s ease-out, -webkit-mask-position 0.1s ease-out;
+        }
+
+    </style>
+</head>
+<body class="font-sans bg-light text-dark">
+<!-- Add the grid overlay element -->
+<div id="grid-overlay"></div>
+
+<!-- Navigation -->
+<nav class="fixed w-full bg-dark text-light shadow-md z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold">
+            <a href="#home" class="text-light font-medium hover:text-primary transition-colors nav-text-hover">Alexander Menschaart</a>
+        </div>
+        <button id="hamburger" class="md:hidden text-2xl">☰</button>
+        <ul id="navbar-menu" class="hidden md:flex md:space-x-6">
+            <li><a href="#home" class="font-medium hover:text-primary transition-colors nav-text-hover ">Home</a></li>
+            <li><a href="#about" class="font-medium hover:text-primary transition-colors nav-text-hover ">About me</a></li>
+            <li><a href="#projects" class="font-medium hover:text-primary transition-colors nav-text-hover">Projects</a></li>
+            <li><a href="#skills" class="font-medium hover:text-primary transition-colors nav-text-hover">Skills</a></li>
+            <li><a href="skills/CV.html" class="font-medium hover:text-primary transition-colors nav-text-hover-cv">My CV</a></li>
+            <li><a href="#contact" class="font-medium hover:text-primary transition-colors nav-text-hover">Contact</a></li>
+        </ul>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark w-full">
+        <ul class="flex flex-col items-center py-4">
+            <li class="py-2"><a href="#home" class="font-medium hover:text-primary transition-colors nav-text-hover ">Home</a></li>
+            <li class="py-2"><a href="#about" class="font-medium hover:text-primary transition-colors nav-text-hover">About me</a></li>
+            <li class="py-2"><a href="#projects" class="font-medium hover:text-primary transition-colors nav-text-hover">Projects</a></li>
+            <li class="py-2"><a href="#skills" class="font-medium hover:text-primary transition-colors nav-text-hover">Skills</a></li>
+            <li><a href="#skills" class="font-medium hover:text-primary transition-colors nav-text-hover-cv">CV</a></li>
+            <li class="py-2"><a href="#contact" class="font-medium hover:text-primary transition-colors nav-text-hover">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="pt-32 pb-20 bg-gradient-to-l from-primary to-secondary text-light text-center">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-5xl font-bold mt-4 mb-2 tracking-in-expand">Alexander Menschaart</h1>
+            <p class="text-xl mb-8 opacity-90">Game Developer & Full stack web developer</p>
+            <a href="#contact" class="inline-block hover: px-6 py-3 rounded font-medium transition-all transform hover:-translate-y-0.5 ">
+                Contact Details
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Who Am I Exactly?</h2>
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <p class="mb-4">If I had to describe myself, I would say I am a constantly learning and changing individual-- Always reflecting on my actions and never taking criticism to heart. Knowing that I will never be perfect, I still wish to design and create trying to reach perfection.</p>
+                <p class="mb-4">I love working creatively, I love adjusting little numbers until it just feels right. I am certainly a more result focused individual, therefore I prefer working front-end for example, because I get to instantly see the result of my actions.</p>
+                <p class="mb-4">This brings me to my real obsession/love: Game development. Ever since I've touched Unreal Engine, I've fallen in love with it. I lock myself up in my room, forgetting to eat and iterating on mechanics I have been working on.</p>
+                <p class="mb-4">Besides the nerdy stuff, I also have a personality (believe it or not) and diverging hobbies such as taking care of my physical/mental health by going to the gym/jogging, and I've been doing this for several years. I like international politics and economics, I love banter and I can take a joke, this just makes working together more fun in my opinion.</p>
+                <p class="mb-4 font-bold">Professional background</p>
+                <p class="mb-4">I'm currently in year 2 of 4 of studying Creative Media & Game Technologies at University of Applied Sciences in Rotterdam, and I learn game design in my free time.</p>
+            </div>
+            <div class="md:w-1/2 text-center">
+                <img src="images/me.jpg" alt="My pic" class="rounded-lg shadow-xl max-w-full h-auto" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">My Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-shadow">
+                <img src="images/projectPookerDash.png" alt="Project 1" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Unreal Engine</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Blueprints</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Pooker Dash</h3>
+                    <p class="mb-4">A fast paced melee combat game where you need to kill enemy AI.</p>
+                    <a href="projects/project1.html" class="inline-block bg-primary hover:bg-secondary text-white px-4 py-2 rounded font-medium transition-colors bg-hover">View Project</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-shadow">
+                <img src="images/projectAmericanDream.png" alt="Project 2" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Unreal Engine</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Blueprints</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Virtual Reality</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">American Dream</h3>
+                    <p class="mb-4">A story driven back-rooms styled VR horror game.</p>
+                    <a href="projects/project2.html" class="inline-block bg-primary hover:bg-secondary text-white px-4 py-2 rounded font-medium transition-colors bg-hover">View Project</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-shadow">
+                <img src="images/github.jpg" alt="Project 3" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">React</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Laravel</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">HTML</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">JavaScript</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">PHP</span>
+                        <span class="bg-gray-200 px-2 py-1 rounded text-xs">Tailwind css</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">All Github Projects</h3>
+                    <p class="mb-4">A brief description of the project and your role in it. Explain the technologies used and challenges overcome.</p>
+                    <a href="projects/project3.html" class="inline-block bg-primary hover:bg-secondary text-white px-4 py-2 rounded font-medium transition-colors bg-hover">View Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Skills Section -->
+<section id="skills" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">My Skills & Experience</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/gamedesign.jpg" alt="gamedesign pic" class="rounded-lg shadow-xl max-w-full h-auto" />
+                <h3 class="text-2xl font-bold mb-2">Game Development/Design</h3>
+                <p>Creating snappy, clean game mechanics. My skills include: game logic (coding/blueprints), animation, enemy AI, level building, texture logic, sound design, concept ideation, combat design, etc. Using Unreal Engine 5 (UE5). </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/webdesign.jpg" alt="frontend pic" class="rounded-lg shadow-xl max-w-full h-auto" />
+                <h3 class="text-2xl font-bold mb-2">Front-end web design</h3>
+                <p>Creative and fluent design for optimal User Experience. Experience making style guids wireframes in figma. Understanding the psychological response to certain designs, colour pallets, or language use. limiting the amount of clicks needed to navigate the site, and using best practices for accessibility.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/backenddesign.jpg" alt="backend pic" class="rounded-lg shadow-xl max-w-full h-auto" />
+                <h3 class="text-2xl font-bold mb-2">Back-end & database design</h3>
+                <p>CRUD, pagination, using best practices for security measurements such as OWASP, database management, experience using POSTMAN, and much more.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/codinglanguages.jpg" alt="coding langues/frameworks pic" class="rounded-lg shadow-xl max-w-full h-auto" />
+                <h3 class="text-2xl font-bold mb-2">Coding and framework skills</h3>
+                <p>HTML, CSS, Javascript, PHP, Tailwind css, React, Express, Laravel</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/teamwork.jpg" alt="teamwork pic" class="rounded-lg shadow-xl max-w-full h-auto" />
+                <h3 class="text-2xl font-bold mb-2">Teamwork skills and planning</h3>
+                <p>Working together with several different teams using Github and Trello/Asana/Github Projects (with user stories) for scheduling and task management. Communication skills and utilising stand-ups/stand-downs in order to track individual progress. Experience with working with people from different cultural backgrounds during Erasmus+ exchange to Finland. </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/targetAudience.jpg" alt="target audience" class="rounded-lg shadow-xl max-w-full h-auto" />
+                <h3 class="text-2xl font-bold mb-2">Understanding Target audience & sustainability </h3>
+                <p>Experience interviewing target audiences and iterating on products presented to the target audiences. Experience with independent research and documentation including product manufacturing, carbon footprint, eco-friendly design and sustainability</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<!-- (Assuming your contact form remains elsewhere or is integrated with EmailJS) -->
+
+<!-- Footer -->
+<footer id="contact" class="bg-dark text-light py-12">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-between gap-8">
+            <div class="w-full md:w-1/3 lg:w-1/4">
+                <h3 class="text-xl font-bold mb-6 ">Alexander Menschaart</h3>
+                <p class="mb-4">A passionate game developer focused on creating the best User Experience</p>
+            </div>
+            <div class="w-full md:w-1/3 lg:w-1/4">
+                <h3 class="text-xl font-bold mb-6">Navigation Links</h3>
+                <ul>
+                    <li class="mb-3"><a href="#home" class="text-gray-400 hover:text-white transition-colors nav-text-hover">Home</a></li>
+                    <li class="mb-3"><a href="#about" class="text-gray-400 hover:text-white transition-colors nav-text-hover">About</a></li>
+                    <li class="mb-3"><a href="#skills" class="text-gray-400 hover:text-white transition-colors nav-text-hover">Skills</a></li>
+                    <li class="mb-3"><a href="#projects" class="text-gray-400 hover:text-white transition-colors nav-text-hover">Projects</a></li>
+                    <li class="mb-3"><a href="skills/CV.html" class="text-gray-400 hover:text-white transition-colors nav-text-hover-cv">My CV</a></li>
+                </ul>
+            </div>
+            <div class="w-full md:w-1/3 lg:w-1/4">
+                <h3 class="text-xl font-bold mb-6">Contact Info</h3>
+                <ul>
+                    <li class="mb-3 flex items-center">
+                        <img src="images/hotmail.jpg" alt="email Logo" class="w-4 h-4 mr-2">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors nav-text-hover copy-link">alexandermens@hotmail.com</a>
+                    </li>
+                    <li class="mb-3 flex items-center">
+                        <img src="images/linkedin.jpg" alt="LinkedIn Logo" class="w-4 h-4 mr-2">
+                        <a href="https://www.linkedin.com/in/alex-menschaart-game-and-web-developer/" class="text-gray-400 hover:text-white transition-colors nav-text-hover">LinkedIn</a>
+                    </li>
+                    <li class="mb-3 flex items-center">
+                        <img src="images/discord.jpg" alt="Discord Logo" class="w-4 h-4 mr-2">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors nav-text-hover copy-link">Vharixce</a>
+                    </li>
+                    <li class="mb-3 flex items-center">
+                        <img src="images/phone.jpg" alt="phone Logo" class="w-4 h-4 mr-2">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors nav-text-hover copy-link">+31617146099</a>
+                    </li>
+                    <li class="mb-3 flex items-center">
+                        <img src="images/location.jpg" alt="location Logo" class="w-4 h-4 mr-2">
+                        <a href="https://www.google.com/maps/place/Den+Haag/@52.071731,4.2274684,20908m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47c5b72f4298bd71:0x400de5a8d1e6c10!8m2!3d52.0704978!4d4.3006999!16zL20vMDdnMF8?authuser=0&entry=ttu&g_ep=EgoyMDI1MDQwOS4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D" class="text-gray-400 hover:text-white transition-colors nav-text-hover">The Hague, The Netherlands</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-400">
+            <p>&copy; 2025 Alexander Menschaart. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
