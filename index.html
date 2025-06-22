@@ -6,70 +6,49 @@
     <title>Portfolio Alexander Menschaart</title>
     <!-- Include Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- EmailJS SDK (if needed later) -->
-
-        <!-- ... andere tags ... -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <style>
-        /* Rainbow colors with adjusted lightness (more white) */
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Ubuntu Sans', sans-serif;
-
         }
         :root {
-            --rainbow-red: rgba(255, 0, 0, 1);
-            --rainbow-orange: rgba(230, 205, 50, 1);
-             --rainbow-yellow: rgba(255, 255, 0, 1);
-            --rainbow-green: rgba(0, 128, 0, 1);
-            --rainbow-blue: rgba(0, 0, 255, 1);
-            --rainbow-indigo: rgba(75, 0, 130, 1);
-            --rainbow-violet: rgba(238, 130, 238, 1);
-            --rainbow-magenta: rgba(255, 120, 200, 1);
-            --rainbow-lightgreen: rgba(150, 220, 100, 1);
+            --accent-amber: rgb(120, 53, 15); /* Amber 600 */
+            --accent-amber-light: rgb(202, 138, 4); /* Amber 500 */
+            --neutral-light: rgb(245, 245, 245);
+            --neutral-medium: rgb(115, 115, 115);
+            --neutral-dark: rgb(23, 23, 23);
         }
-
-        /* Text hover effect for navigation links and specific buttons */
         .nav-text-hover:hover,
         .text-hover:hover {
-            animation: rainbow-hover-text 5s infinite;
+            animation: neutral-hover-text 0.8s ease-in-out;
         }
         .nav-text-hover-cv:hover,
         .text-hover:hover {
-            animation: rainbow-hover-text-cv 5s infinite;
+            animation: amber-hover-text 0.8s ease-in-out;
         }
-
-        /* Background hover effect for other buttons */
         .bg-hover:hover {
-            animation: rainbow-hover-bg 5s infinite;
+            animation: amber-hover-bg 0.8s ease-in-out;
         }
-
-        /* Define keyframes for text color animation */
-        @keyframes rainbow-hover-text {
-            0%   { color: var(--rainbow-orange); }
-            25%  { color: var(--rainbow-lightgreen); }
-            75%  { color: var(--rainbow-lightgreen); }
-            100% { color: var(--rainbow-orange); }
+        @keyframes neutral-hover-text {
+            0%   { color: rgb(245, 245, 245); }
+            50%  { color: var(--accent-amber-light); }
+            100% { color: rgb(245, 245, 245); }
         }
-        @keyframes rainbow-hover-text-cv {
-            0%   { color: var(--rainbow-magenta); }
-            25%  { color: var(--rainbow-orange); }
-            75%  { color: var(--rainbow-orange); }
-            100% { color: var(--rainbow-magenta); }
+        @keyframes amber-hover-text {
+            0%   { color: rgb(245, 245, 245); }
+            50%  { color: var(--accent-amber); }
+            100% { color: rgb(245, 245, 245); }
         }
-
-        /* Define keyframes for background color animation */
-        @keyframes rainbow-hover-bg {
-            0%   { background-color: var(--rainbow-orange); }
-            25%  { background-color: var(--rainbow-lightgreen); }
-            75%  { background-color: var(--rainbow-lightgreen); }
-            100% { background-color: var(--rainbow-orange); }
+        @keyframes amber-hover-bg {
+            0%   { background-color: var(--accent-amber); }
+            50%  { background-color: var(--accent-amber-light); }
+            100% { background-color: var(--accent-amber); }
         }
-
-
-
-
         .tracking-in-expand {
             -webkit-animation: tracking-in-expand 2s cubic-bezier(.215, .61, .355, 1.000) both;
             animation: tracking-in-expand 2s cubic-bezier(.215, .61, .355, 1.000) both;
@@ -84,12 +63,6 @@
             40% { opacity: .6 }
             100% { opacity: 1 }
         }
-
-        /* --- Custom Hexagonal Grid Overlay Styles --- */
-        /* This overlay covers the entire viewport and shows a large, thin-lined hexagonal grid.
-           Only a circular “spotlight” area (via clip-path) is revealed around the cursor.
-           The clip-path will be animated to fade out gradually when the mouse stops moving. */
-        /* --- Custom Hexagonal Grid Overlay Styles with Soft Fade --- */
         #grid-overlay {
             position: fixed;
             top: 0;
@@ -98,45 +71,33 @@
             height: 100%;
             pointer-events: none;
             z-index: 1000;
-            /* Use an SVG background with thin hexagon lines (stroke-width='0.5') */
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10000' height='86.6'%3E%3Cdefs%3E%3Cpattern id='hex' width='10' height='8.66' patternUnits='userSpaceOnUse'%3E%3Cpolygon points='5,0 10,4.33 5,8.66 0,4.33' fill='none' stroke='%23289c68' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23hex)'/%3E%3C/svg%3E") no-repeat center center;
-            background-size: cover;
-            /* Remove the clip-path in favor of a mask that fades out from the center */
-            /* The radial-gradient creates a circle with a radius of 80px that is fully opaque in the center (black)
-               and fades to transparent at the edges. */
-            mask-image: radial-gradient(circle 80px, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-            /*-webkit-mask-image: radial-gradient(circle 80px, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);*/
-            /* Set the mask size to match the diameter (80px * 2 = 160px) of the spotlight */
-            mask-size: 1px 1px;
-            -webkit-mask-size: 1px 1px;
-            /* Prevent the mask from tiling */
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10000' height='86.6'%3E%3Cdefs%3E%3Cpattern id='hex' width='10' height='8.66' patternUnits='userSpaceOnUse'%3E%3Cpolygon points='5,0 10,4.33 5,8.66 0,4.33' fill='none' stroke='%23000000' stroke-width='0.8'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23hex)'/%3E%3C/svg%3E") repeat;
+            background-size: auto;
+            mask-image: radial-gradient(circle 80px at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: radial-gradient(circle 80px at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
             mask-repeat: no-repeat;
             -webkit-mask-repeat: no-repeat;
-            /* Initially position the mask out of view */
-            mask-position: 0 0;
-            -webkit-mask-position: 0 0;
-            /* Use a transition if you want the mask to animate when updating position */
+            mask-size: 160px 160px;
+            -webkit-mask-size: 160px 160px;
+            mask-position: -80px -80px;
+            -webkit-mask-position: -80px -80px;
             transition: mask-position 0.1s ease-out, -webkit-mask-position 0.1s ease-out;
         }
-
     </style>
 </head>
-<body class="text-white bg-black">
+<body class="text-neutral-100 bg-neutral-950" id="#home">
 
-
-<!-- Add the grid overlay element -->
+<!-- grid overlay -->
 <div id="grid-overlay"></div>
-
-<!-- Navigation -->
 <div id="nav-container"></div>
 
 <!-- Hero Section -->
-<section id="home" class="pt-32 pb-20 bg-gradient-to-l from-primary to-secondary text-black text-center">
+<section id="home" class="pt-32 pb-20 bg-black text-center">
     <div class="container mx-auto px-4">
         <div class="max-w-2xl mx-auto">
-            <h1 class="text-5xl font-bold mt-4 mb-2 tracking-in-expand text-white">Alexander Menschaart</h1>
-            <p class="text-xl mb-8 opacity-90 text-white">Game Developer & Full stack web developer</p>
-            <a href="#contact" class="inline-block hover: px-6 py-3 rounded font-medium transition-all transform hover:-translate-y-0.5 text-white">
+            <h1 class="text-5xl font-bold mt-4 mb-2 tracking-in-expand text-neutral-50">Alexander Menschaart</h1>
+            <p class="text-xl mb-8 opacity-90 text-neutral-200">Game Developer & Full stack web developer</p>
+            <a href="#contact" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">
                 Contact Details
             </a>
         </div>
@@ -145,30 +106,30 @@
 
 
 
-<section id="about" class="pb-0 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl text-black font-bold text-center mb-0">Who Am I Exactly?</h2>
+<section id="about" class="pb-0 bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto px-4 text-neutral-100">
+        <h2 class="text-4xl font-bold text-center mb-0">Who Am I Exactly?</h2>
         <div class="flex flex-col md:flex-row items-center gap-12 relative min-h-[400px]">
 
             <!-- Afbeelding links -->
             <div class="md:w-1/2 flex justify-center">
-                <img src="images/me.png" alt="My pic" class="rounded-lg shadow-xl max-w-[40%] h-auto" />
+                <img src="images/me.png" alt="My pic" class="rounded-lg shadow-xl max-w-[40%] h-auto border border-neutral-700" />
             </div>
 
             <!-- Verticale lijn in het midden, dikker en van boven tot beneden -->
-            <div class="hidden md:block absolute top-0 left-1/2 h-full w-1 bg-black translate-x-[-50%] md:w-1.4"></div>
+            <div class="hidden md:block absolute top-0 left-1/2 h-full w-1 bg-neutral-200 translate-x-[-50%] md:w-1.4"></div>
 
             <!-- Tekst rechts, uitgelijnd links -->
-            <div class="md:w-1/2 text-left text-black pb-10 pt-10">
-                <p class="mb-4">If I had to describe myself, I would say I am a constantly learning and changing individual-- Always reflecting on my actions and never taking criticism to heart. Knowing that I will never be perfect, I still wish to design and create trying to reach perfection.</p>
-                <p class="mb-4">I love working creatively, I love adjusting little numbers until it just feels right. I am certainly a more result focused individual, therefore I prefer working front-end for example, because I get to instantly see the result of my actions.</p>
-                <p class="mb-4">This brings me to another obsession/love: Game development. Ever since I've touched Unreal Engine, I've fallen in love with it. I lock myself up in my room, forgetting to eat and iterating on mechanics I have been working on.</p>
-                <p class="mb-4">Besides these, I have diverging hobbies such as the gymming, geopolitics and economics. I love banter and I can take a joke, this just makes working together more fun in my opinion.</p>
-                <p class="mb-4 font-bold">Professional background</p>
-                <p class="mb-4">I'm currently in year 2 of 4 of studying Creative Media & Game Technologies at University of Applied Sciences in Rotterdam, and I learn game design in my free time.</p>
+            <div class="md:w-1/2 text-left pb-10 pt-10">
+                <p class="mb-4 text-neutral-200">If I had to describe myself, I would say I am a constantly learning and changing individual-- Always reflecting on my actions and always accepting criticism. Knowing that I will never be perfect, I still wish to design and create trying to reach perfection.</p>
+                <p class="mb-4 text-neutral-200">I love working creatively, I love adjusting little numbers until it just feels right. I am certainly a more result focused individual, therefore I prefer working front-end for example, because I get to instantly see the result of my actions.</p>
+                <p class="mb-4 text-neutral-200">This brings me to another obsession/love: Game development. Ever since I've touched Unreal Engine, I've fallen in love with it. I lock myself up in my room, forgetting to eat and iterating on mechanics I have been working on.</p>
+                <p class="mb-4 text-neutral-200">Besides these, I have diverging hobbies such as the gymming, geopolitics and economics. I love banter and I can take a joke, this just makes working together more fun in my opinion.</p>
+                <p class="mb-4 font-bold text-amber-600">Professional background</p>
+                <p class="mb-4 text-neutral-200">I'm currently in year 2 of 4 of studying Creative Media & Game Technologies at University of Applied Sciences in Rotterdam, and I learn game design in my free time.</p>
             </div>
         </div>
-        <h2 class="text-4xl text-black font-bold text-center mb-0">        What Have I Accomplished?</h2>
+        <h2 class="text-4xl font-bold text-center mb-0">        What Have I Accomplished?</h2>
     </div>
 </section>
 
@@ -176,49 +137,134 @@
 
 
 <!-- Projects Section -->
-<section id="projects" class="py-20 bg-gray-750 text-white">
+<section id="projects" class="py-20 bg-neutral-950 text-neutral-100">
     <div class="container mx-auto px-4">
         <h2 class="text-4xl font-bold text-center mb-12">My Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-gray-900 text-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
-                <img src="images/projectPookerDash.png" alt="Project 1" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Unreal Engine</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Blueprints</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Pooker Dash</h3>
-                    <p class="mb-4">A fast paced melee combat game where you need to kill enemy AI.</p>
-                    <a href="projects/project1.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium transition-colors">View Project</a>
-                </div>
-            </div>
-            <div class="bg-gray-900 text-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
-                <img src="images/projectAmericanDream.png" alt="Project 2" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Unreal Engine</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Blueprints</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Virtual Reality</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">American Dream</h3>
-                    <p class="mb-4">A story driven back-rooms styled VR horror game.</p>
-                    <a href="projects/project2.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium transition-colors">View Project</a>
-                </div>
-            </div>
-            <div class="bg-gray-900 text-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
                 <img src="images/github.jpg" alt="Project 3" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">React</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Laravel</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">HTML</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">JavaScript</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">PHP</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Tailwind css</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">React</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Laravel</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">HTML</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">JavaScript</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">PHP</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Tailwind css</span>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2">All Github Projects</h3>
-                    <p class="mb-4">A brief description of the project and your role in it. Explain the technologies used and challenges overcome.</p>
-                    <a href="projects/project3.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium transition-colors">View Project</a>
+                    <h3 class="text-2xl font-bold mb-2">Visit my Github</h3>
+                    <p class="mb-4 text-neutral-300">Visit my github in all its glory</p>
+                    <a href="https://github.com/Vharixce?tab=repositories" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Github</a>
+                </div>
+            </div>
+
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectPookerDash.png" alt="Project 1" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Unreal Engine</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Blueprints</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Pooker Dash</h3>
+                    <p class="mb-4 text-neutral-300">A fast paced melee combat game where you need to kill enemy AI.</p>
+                    <a href="projects/project1.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
+                </div>
+            </div>
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectAmericanDream.png" alt="Project 2" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Unreal Engine</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Blueprints</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Virtual Reality</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">American Dream</h3>
+                    <p class="mb-4 text-neutral-300">A story driven back-rooms styled VR horror game.</p>
+                    <a href="projects/project2.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
+                </div>
+            </div>
+
+
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectOpenHiring.png" alt="Project 4" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Laravel</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">HTML</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">PHP</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Tailwind css</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Open Hiring</h3>
+                    <p class="mb-4 text-neutral-300">An anonymous vacancy site </p>
+                    <a href="projects/project3.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
+                </div>
+            </div>
+
+
+
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectNoWayBack.png" alt="Project 5" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Unreal Engine</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Blueprints</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Textures</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Level Design</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">C++ </span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">No Way Back</h3>
+                    <p class="mb-4 text-neutral-300">Sustainability awareness simulation/game</p>
+                    <a href="projects/project4.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
+                </div>
+            </div>
+
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectSignLanguage.png" alt="Project 6" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">React</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">HTML</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">JavaScript</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">Tailwind CSS</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">JWT Authentication</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">SSO Integration</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Sign Language Website</h3>
+                    <p class="mb-4 text-neutral-300">A responsive website which teaches sign language</p>
+                    <a href="projects/project5.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
+                </div>
+            </div>
+
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectHandRecognition.png" alt="Project 6" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">React</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">HTML</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">JavaScript</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Tailwind css</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Pose Detection</h3>
+                    <p class="mb-4 text-neutral-300">A website in which you can train-and-recognise hand poses</p>
+                    <a href="projects/project6.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
+                </div>
+            </div>
+            <div class="bg-neutral-900 text-neutral-100 rounded-lg overflow-hidden shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform duration-300">
+                <img src="images/projectLLM.png" alt="Project 6" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">React</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">HTML</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">JavaScript</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Tailwind css</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">OpenAI</span>
+                        <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Azure</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Large Language Model</h3>
+                    <p class="mb-4 text-neutral-300">An adjusted ChatLLM using prompt engineering and more</p>
+                    <a href="projects/project7.html" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">View Project</a>
                 </div>
             </div>
         </div>
@@ -226,39 +272,39 @@
 </section>
 
 <!-- Skills Section -->
-<section id="skills" class="py-20 bg-gray-900 text-white">
+<section id="skills" class="py-20 bg-neutral-950 text-neutral-100">
     <div class="container mx-auto px-4">
         <h2 class="text-4xl font-bold text-center mb-12">My Skills & Experience</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-gray-950 text-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
-                <img src="images/gamedesign.jpg" alt="gamedesign pic" class="rounded-lg shadow-xl max-w-full h-auto" />
-                <h3 class="text-2xl font-bold mb-2">Game Development/Design</h3>
-                <p>Creating snappy, clean game mechanics. My skills include: game logic (coding/blueprints), animation, enemy AI, level building, texture logic, sound design, concept ideation, combat design, etc. Using Unreal Engine 5 (UE5). </p>
+            <div class="bg-neutral-900 text-neutral-100 p-6 rounded-lg shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/gamedesign.jpg" alt="gamedesign pic" class="rounded-lg shadow-xl max-w-full h-auto border border-neutral-600" />
+                <h3 class="text-2xl font-bold mb-2 mt-2 text-gray-200">Game Development/Design</h3>
+                <p class="text-neutral-300">Creating snappy, clean game mechanics. My skills include: game logic (coding/blueprints), animation, enemy AI, level building, texture logic, sound design, concept ideation, combat design, etc. Using Unreal Engine 5 (UE5). </p>
             </div>
-            <div class="bg-gray-950 text-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
-                <img src="images/webdesign.jpg" alt="frontend pic" class="rounded-lg shadow-xl max-w-full h-auto" />
-                <h3 class="text-2xl font-bold mb-2">Front-end web design</h3>
-                <p>Creative and fluent design for optimal User Experience. Experience making style guids wireframes in figma. Understanding the psychological response to certain designs, colour pallets, or language use. limiting the amount of clicks needed to navigate the site, and using best practices for accessibility.</p>
+            <div class="bg-neutral-900 text-neutral-100 p-6 rounded-lg shadow-lg border border-neutral-600 hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/webdesign.jpg" alt="frontend pic" class="rounded-lg shadow-xl max-w-full h-auto border border-neutral-600" />
+                <h3 class="text-2xl font-bold mb-2 mt-2 text-gray-200">Front-end web design</h3>
+                <p class="text-neutral-300">Creative and fluent design for optimal User Experience. Experience making style guids wireframes in figma. Understanding the psychological response to certain designs, colour pallets, or language use. limiting the amount of clicks needed to navigate the site, and using best practices for accessibility.</p>
             </div>
-            <div class="bg-gray-950 text-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
-                <img src="images/backenddesign.jpg" alt="backend pic" class="rounded-lg shadow-xl max-w-full h-auto" />
-                <h3 class="text-2xl font-bold mb-2">Back-end & database design</h3>
-                <p>CRUD, pagination, using best practices for security measurements such as OWASP, database management, experience using POSTMAN, and much more.</p>
+            <div class="bg-neutral-900 text-neutral-100 p-6 rounded-lg shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/backenddesign.jpg" alt="backend pic" class="rounded-lg shadow-xl max-w-full h-auto border border-neutral-600" />
+                <h3 class="text-2xl font-bold mb-2 mt-2 text-gray-200">Back-end & database design</h3>
+                <p class="text-neutral-300">CRUD, pagination, using best practices for security measurements such as OWASP, database management, experience using POSTMAN, and much more.</p>
             </div>
-            <div class="bg-gray-950 text-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
-                <img src="images/codinglanguages.jpg" alt="coding langues/frameworks pic" class="rounded-lg shadow-xl max-w-full h-auto" />
-                <h3 class="text-2xl font-bold mb-2">Coding and framework skills</h3>
-                <p>HTML, CSS, Javascript, PHP, Tailwind css, React, Express, Laravel</p>
+            <div class="bg-neutral-900 text-neutral-100 p-6 rounded-lg shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/codinglanguages.jpg" alt="coding langues/frameworks pic" class="rounded-lg shadow-xl max-w-full h-auto border border-neutral-600" />
+                <h3 class="text-2xl font-bold mb-2 mt-2 text-gray-200">Coding and framework skills</h3>
+                <p class="text-neutral-300">HTML, CSS, Javascript, PHP, Tailwind css, React, Express, Laravel</p>
             </div>
-            <div class="bg-gray-950 text-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
-                <img src="images/teamwork.jpg" alt="teamwork pic" class="rounded-lg shadow-xl max-w-full h-auto" />
-                <h3 class="text-2xl font-bold mb-2">Teamwork skills and planning</h3>
-                <p>Working together with several different teams using Github and Trello/Asana/Github Projects (with user stories) for scheduling and task management. Communication skills and utilising stand-ups/stand-downs in order to track individual progress. Experience with working with people from different cultural backgrounds during Erasmus+ exchange to Finland. </p>
+            <div class="bg-neutral-900 text-neutral-100 p-6 rounded-lg shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/teamwork.jpg" alt="teamwork pic" class="rounded-lg shadow-xl max-w-full h-auto border border-neutral-600" />
+                <h3 class="text-2xl font-bold mb-2 mt-2 text-gray-200">Teamwork skills and planning</h3>
+                <p class="text-neutral-300">Working together with several different teams using Github and Trello/Asana/Github Projects (with user stories) for scheduling and task management. Communication skills and utilising stand-ups/stand-downs in order to track individual progress. Experience with working with people from different cultural backgrounds during Erasmus+ exchange to Finland. </p>
             </div>
-            <div class="bg-gray-950 text-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
-                <img src="images/targetAudience.jpg" alt="target audience" class="rounded-lg shadow-xl max-w-full h-auto" />
-                <h3 class="text-2xl font-bold mb-2">Understanding Target audience & sustainability </h3>
-                <p>Experience interviewing target audiences and iterating on products presented to the target audiences. Experience with independent research and documentation including product manufacturing, carbon footprint, eco-friendly design and sustainability</p>
+            <div class="bg-neutral-900 text-neutral-100 p-6 rounded-lg shadow-lg border border-neutral-700 hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition duration-300">
+                <img src="images/targetAudience.jpg" alt="target audience" class="rounded-lg shadow-xl max-w-full h-auto border border-neutral-600" />
+                <h3 class="text-2xl font-bold mb-2 mt-2 text-gray-200">Understanding Target audience & sustainability </h3>
+                <p class="text-neutral-300">Experience interviewing target audiences and iterating on products presented to the target audiences. Experience with independent research and documentation including product manufacturing, carbon footprint, eco-friendly design and sustainability</p>
             </div>
         </div>
     </div>
@@ -269,6 +315,7 @@
 <!-- (Assuming your contact form remains elsewhere or is integrated with EmailJS) -->
 <div id="footer-container"></div>
 
+
 <script>
     async function loadLayout() {
         const res = await fetch('layout.html');
@@ -276,18 +323,10 @@
             const text = await res.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(text, 'text/html');
-
-            // Nav plaatsen
             const nav = doc.querySelector('nav');
-            if (nav) {
-                document.getElementById('nav-container').appendChild(nav);
-            }
-
-            // Footer plaatsen
+            if (nav) document.getElementById('nav-container').appendChild(nav);
             const footer = doc.querySelector('footer');
-            if (footer) {
-                document.getElementById('footer-container').appendChild(footer);
-            }
+            if (footer) document.getElementById('footer-container').appendChild(footer);
         } else {
             console.error('Kon layout.html niet laden');
         }
@@ -295,6 +334,17 @@
     loadLayout();
 </script>
 
+<script>
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX - 80 + 'px';
+        const y = e.clientY - 80 + 'px';
+        const grid = document.getElementById('grid-overlay');
+        if (grid) {
+            grid.style.maskPosition = `${x} ${y}`;
+            grid.style.webkitMaskPosition = `${x} ${y}`;
+        }
+    });
+</script>
 <script src="js/script.js"></script>
 </body>
 </html>

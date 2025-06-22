@@ -1,73 +1,97 @@
 <!-- layout.html -->
 <style>
-  /* Voeg onder je :root kleuren toe of apart */
+  html {
+    scroll-behavior: smooth;
+  }
   .bg-dark {
-    background-color: black; /* je darkgreen kleur */
+    background-color: black;
   }
   .text-light {
-    color: #F8F8F8; /* een lichte kleur, wit/lichte grijs */
+    color: #F8F8F8;
   }
   .text-dark {
-    color: #2E342A; /* of een donkere kleur */
+    color: #2E342A;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  .backdrop-blur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
 </style>
 
+<nav class="fixed w-full bg-black bg-opacity-50 backdrop-blur text-white shadow-md z-50">
 
-<nav class="fixed w-full bg-black text-white shadow-md z-50">
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
     <div class="text-2xl font-bold">
-      <a href="#home" class="text-white font-medium hover:text-primary transition-colors nav-text-hover">Alexander Menschaart</a>
+      <a href="#home" class="text-white font-medium hover:text-amber-600 transition-colors">Alexander Menschaart</a>
     </div>
     <button id="hamburger" class="md:hidden text-2xl">☰</button>
     <ul id="navbar-menu" class="hidden md:flex md:space-x-6">
-      <li><a href="#home" class="font-medium hover:text-primary transition-colors nav-text-hover ">Home</a></li>
-      <li><a href="#about" class="font-medium hover:text-primary transition-colors nav-text-hover ">About me</a></li>
-      <li><a href="#projects" class="font-medium hover:text-primary transition-colors nav-text-hover">Projects</a></li>
-      <li><a href="#skills" class="font-medium hover:text-primary transition-colors nav-text-hover">Skills</a></li>
-      <li><a href="skills/CV.html" class="font-medium hover:text-primary transition-colors nav-text-hover-cv">My CV</a></li>
-      <li><a href="#contact" class="font-medium hover:text-primary transition-colors nav-text-hover">Contact</a></li>
+      <li><a href="#home" class="font-medium hover:text-amber-600 transition-colors">Home</a></li>
+      <li><a href="#projects" class="font-medium hover:text-amber-600 transition-colors">Projects</a></li>
+      <li><a href="#skills" class="font-medium hover:text-amber-600 transition-colors">Skills</a></li>
+      <li><a href="/MyPortfolio/skills/CV.html" class="font-medium hover:text-amber-600 transition-colors">My CV</a></li>
+      <li><a href="#contact" class="font-medium hover:text-amber-600 transition-colors">Contact</a></li>
     </ul>
   </div>
-  <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-dark w-full">
     <ul class="flex flex-col items-center py-4">
-      <li class="py-2"><a href="#home" class="font-medium hover:text-primary transition-colors nav-text-hover ">Home</a></li>
-      <li class="py-2"><a href="#about" class="font-medium hover:text-primary transition-colors nav-text-hover">About me</a></li>
-      <li class="py-2"><a href="#projects" class="font-medium hover:text-primary transition-colors nav-text-hover">Projects</a></li>
-      <li class="py-2"><a href="#skills" class="font-medium hover:text-primary transition-colors nav-text-hover">Skills</a></li>
-      <li><a href="#skills" class="font-medium hover:text-primary transition-colors nav-text-hover-cv">CV</a></li>
-      <li class="py-2"><a href="#contact" class="font-medium hover:text-primary transition-colors nav-text-hover">Contact</a></li>
+      <li class="py-2"><a href="#home" class="font-medium hover:text-amber-600 transition-colors">Home</a></li>
+      <li class="py-2"><a href="#projects" class="font-medium hover:text-amber-600 transition-colors">Projects</a></li>
+      <li class="py-2"><a href="#skills" class="font-medium hover:text-amber-600 transition-colors">Skills</a></li>
+      <li class="py-2"><a href="/MyPortfolio/skills/CV.html" class="font-medium hover:text-amber-600 transition-colors">CV</a></li>
+      <li class="py-2"><a href="#contact" class="font-medium hover:text-amber-600 transition-colors">Contact</a></li>
     </ul>
   </div>
 </nav>
+
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Smooth scroll fix for external links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden'); // auto close mobile menu on click
+        }
+      }
+    });
+  });
+</script>
 
 <footer id="contact" class="bg-black text-white py-12">
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap justify-between gap-8">
       <div class="w-full md:w-1/3 lg:w-1/4">
-        <h3 class="text-xl font-bold mb-6 ">Alexander Menschaart</h3>
+        <h3 class="text-xl font-bold mb-6">Alexander Menschaart</h3>
         <p class="mb-4">A passionate game developer focused on creating the best User Experience</p>
       </div>
-
       <div class="w-full md:w-1/3 lg:w-1/4">
         <h3 class="text-xl font-bold mb-6">Contact Info</h3>
         <ul>
           <li class="mb-3 flex items-center">
-            <img src="images/hotmail.jpg" alt="email Logo" class="w-4 h-4 mr-2">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors nav-text-hover copy-link">alexandermens@hotmail.com</a>
+            <img src="/MyPortfolio/images/hotmail.jpg" alt="email Logo" class="w-4 h-4 mr-2">
+            <a href="mailto:alexandermens@hotmail.com?subject=Portfolio Contact&body=Hallo Alexander," class="text-gray-400 hover:text-white transition-colors">alexandermens@hotmail.com</a>
           </li>
           <li class="mb-3 flex items-center">
-            <img src="images/linkedin.jpg" alt="LinkedIn Logo" class="w-4 h-4 mr-2">
-            <a href="https://www.linkedin.com/in/alex-menschaart-game-and-web-developer/" class="text-gray-400 hover:text-white transition-colors nav-text-hover">LinkedIn</a>
+            <img src="/MyPortfolio/images/linkedin.jpg" alt="LinkedIn Logo" class="w-4 h-4 mr-2">
+            <a href="https://www.linkedin.com/in/alex-menschaart-game-and-web-developer/" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
           </li>
           <li class="mb-3 flex items-center">
-            <img src="images/discord.jpg" alt="Discord Logo" class="w-4 h-4 mr-2">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors nav-text-hover copy-link">Vharixce</a>
-          </li>
-          <li class="mb-3 flex items-center">
-            <img src="images/location.jpg" alt="location Logo" class="w-4 h-4 mr-2">
-            <a href="https://www.google.com/maps/place/Den+Haag/@52.071731,4.2274684,20908m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47c5b72f4298bd71:0x400de5a8d1e6c10!8m2!3d52.0704978!4d4.3006999!16zL20vMDdnMF8?authuser=0&entry=ttu&g_ep=EgoyMDI1MDQwOS4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D" class="text-gray-400 hover:text-white transition-colors nav-text-hover">The Hague, The Netherlands</a>
+            <img src="/MyPortfolio/images/location.jpg" alt="location Logo" class="w-4 h-4 mr-2">
+            <a href="https://www.google.com/maps/place/Den+Haag/" class="text-gray-400 hover:text-white transition-colors">The Hague, The Netherlands</a>
           </li>
         </ul>
       </div>

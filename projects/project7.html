@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Projects - Alexander Menschaart</title>
+    <!-- Include Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Ubuntu Sans', sans-serif;
+        }
+        :root {
+            --accent-amber: rgb(120, 53, 15); /* Amber 600 */
+            --accent-amber-light: rgb(202, 138, 4); /* Amber 500 */
+            --neutral-light: rgb(245, 245, 245);
+            --neutral-medium: rgb(115, 115, 115);
+            --neutral-dark: rgb(23, 23, 23);
+        }
+        .nav-text-hover:hover,
+        .text-hover:hover {
+            animation: neutral-hover-text 0.8s ease-in-out;
+        }
+        .nav-text-hover-cv:hover,
+        .text-hover:hover {
+            animation: amber-hover-text 0.8s ease-in-out;
+        }
+        .bg-hover:hover {
+            animation: amber-hover-bg 0.8s ease-in-out;
+        }
+        @keyframes neutral-hover-text {
+            0%   { color: rgb(245, 245, 245); }
+            50%  { color: var(--accent-amber-light); }
+            100% { color: rgb(245, 245, 245); }
+        }
+        @keyframes amber-hover-text {
+            0%   { color: rgb(245, 245, 245); }
+            50%  { color: var(--accent-amber); }
+            100% { color: rgb(245, 245, 245); }
+        }
+        @keyframes amber-hover-bg {
+            0%   { background-color: var(--accent-amber); }
+            50%  { background-color: var(--accent-amber-light); }
+            100% { background-color: var(--accent-amber); }
+        }
+        .tracking-in-expand {
+            -webkit-animation: tracking-in-expand 2s cubic-bezier(.215, .61, .355, 1.000) both;
+            animation: tracking-in-expand 2s cubic-bezier(.215, .61, .355, 1.000) both;
+        }
+        @-webkit-keyframes tracking-in-expand {
+            0% { letter-spacing: -.5em; opacity: 0 }
+            40% { opacity: .6 }
+            100% { opacity: 1 }
+        }
+        @keyframes tracking-in-expand {
+            0% { letter-spacing: -.5em; opacity: 0 }
+            40% { opacity: .6 }
+            100% { opacity: 1 }
+        }
+        #grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10000' height='86.6'%3E%3Cdefs%3E%3Cpattern id='hex' width='10' height='8.66' patternUnits='userSpaceOnUse'%3E%3Cpolygon points='5,0 10,4.33 5,8.66 0,4.33' fill='none' stroke='%23000000' stroke-width='0.8'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23hex)'/%3E%3C/svg%3E") repeat;
+            background-size: auto;
+            mask-image: radial-gradient(circle 80px at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: radial-gradient(circle 80px at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-size: 160px 160px;
+            -webkit-mask-size: 160px 160px;
+            mask-position: -80px -80px;
+            -webkit-mask-position: -80px -80px;
+            transition: mask-position 0.1s ease-out, -webkit-mask-position 0.1s ease-out;
+        }
+    </style>
+</head>
+<body class="text-neutral-100 bg-neutral-950">
+
+<!-- grid overlay -->
+<div id="grid-overlay"></div>
+<div id="nav-container"></div>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-10 text-center relative" style="background-image: url('../images/projectLLM.png'); background-size: cover; background-position: center;">
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-4xl font-bold mt-4 mb-2 tracking-in-expand text-neutral-50">Large Language Model</h1>
+            <p class="text-xl mb-8 opacity-90 text-neutral-200">An adjusted LLM using prompt engineering and more</p>
+            <a href="../index.html#projects" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">
+                Back to Projects
+            </a>
+
+            <div class="flex flex-wrap gap-2 mb-0 justify-center mt-6">
+                <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">React</span>
+                <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">HTML</span>
+                <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">JavaScript</span>
+                <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">Tailwind CSS</span>
+                <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">OpenAI</span>
+                <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Azure</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Section with Split Layout -->
+<section class="py-20 bg-neutral-950 text-neutral-100">
+    <div class="container mx-auto px-4">
+        <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+
+            <!-- Project Header -->
+            <div class="p-8 text-center">
+                <h4 class="text-3xl font-bold mb-4 text-neutral-100">Chat Large Language Model</h4>
+
+            </div>
+
+            <!-- Split Layout Container -->
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="hidden md:block absolute top-0 left-1/2 h-full w-1 bg-neutral-200 md:w-1.4"></div>
+
+                <!-- Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+
+                    <!-- Left Side - Images -->
+                    <div class="p-0 pr-12 space-y-8">
+                        <div class="rounded-lg transform transition-transform duration-300">
+                            <img src="../images/projectLLM1.png" alt="Sign Language Mobile View" class="w-full h-auto object-cover rounded border border-neutral-600 mb-2" />
+                            <p class="text-sm text-neutral-400 text-center">Asking Prompt Related Questions</p>
+                        </div>
+
+                        <div class="rounded-lg transform transition-transform duration-300">
+                            <img src="../images/projectLLM2.png" alt="Sign Language Desktop View" class="w-full h-auto object-cover rounded border border-neutral-600 mb-2" />
+                            <p class="text-sm text-neutral-400 text-center">Remembering The Conversation History</p>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Right Side - Text Content -->
+                    <div class="px-8 pl-12 flex flex-col">
+                        <div class="max-w-xl">
+                            <div class="mb-8">
+                                <h5 class="text-xl font-semibold mb-4 text-amber-500">Project Overview</h5>
+                                <p class="mb-6 text-neutral-300 leading-relaxed">
+                                    An adjusted LLM using prompt engineering, this project is a web application that allows users to interact with a Large Language Model (LLM) through a chat interface. The application is designed to provide an intuitive user experience, enabling users to ask questions and receive answers from the LLM in real-time.
+                                    The application is able to use custom data to answer questions. The LLM is integrated using OpenAI's API, allowing for advanced natural language processing capabilities.
+                                </p>
+
+                            </div>
+
+
+
+                            <div class="mb-8">
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">React</span>
+                                    <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">HTML</span>
+                                    <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">JavaScript</span>
+                                    <span class="bg-neutral-700 text-neutral-200 px-3 py-1 rounded text-sm">Tailwind CSS</span>
+                                    <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">OpenAI</span>
+                                    <span class="bg-neutral-700 text-neutral-200 px-2 py-1 rounded text-xs">Azure</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <a href="https://github.com/Vharixce/LLM_project" class="inline-block bg-gradient-to-r from-amber-600 to-amber-400 hover:from-neutral-500 hover:to-neutral-400 text-neutral-50 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg">
+                                    View Project On GitHub
+                                </a>
+
+                                <div class="mt-6">
+                                    <a href="../index.html#projects" class="inline-block bg-neutral-800 hover:bg-neutral-700 border-neutral-600 text-neutral-100 px-8 py-3 rounded-lg font-medium transition-all transform hover:-translate-y-1">
+                                        ← Back to All Projects
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+
+
+<div id="footer-container"></div>
+
+
+<script>
+    async function loadLayout() {
+        const res = await fetch('../layout.html');
+        if (res.ok) {
+            const text = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const nav = doc.querySelector('nav');
+            if (nav) document.getElementById('nav-container').appendChild(nav);
+            const footer = doc.querySelector('footer');
+            if (footer) document.getElementById('footer-container').appendChild(footer);
+        } else {
+            console.error('Kon layout.html niet laden');
+        }
+    }
+    loadLayout();
+</script>
+<script>
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX - 80 + 'px';
+        const y = e.clientY - 80 + 'px';
+        const grid = document.getElementById('grid-overlay');
+        if (grid) {
+            grid.style.maskPosition = `${x} ${y}`;
+            grid.style.webkitMaskPosition = `${x} ${y}`;
+        }
+    });
+</script>
+<script src="../js/script.js"></script>
+</body>
+</html>
